@@ -9,10 +9,10 @@ create table company_driver
 (id serial primary key, company_id int references companies(id), driver_d_id int references drivers(d_id));
 
 create table trips
-(id serial primary key, name varchar(100), date_start date, date_end date, driver_d_id int references drivers(d_id), company_id int references companies(id));
+(id serial primary key, name varchar(100), total_spent int, date_start date, date_end date, driver_d_id int references drivers(d_id), company_id int references companies(id));
 
 create table receipts
-(id serial primary key, date_created date, lat int, lng int, type varchar(100), amount int, total int, trip_id int references trips(id));
+(id serial primary key, date_created date, lat int, lng int, type varchar(100),city varchar(100),state varchar(30) amount int, total int, trip_id int references trips(id));
 
 
 insert into companies
@@ -37,8 +37,8 @@ values
 ('Trip 1','2008-11-11','2008-12-17',1,1);
 
 insert into receipts
-(date_created,lat,lng,type,amount,total,trip_id)
+(city,state,date_created,lat,lng,type,amount,total,trip_id)
 values
-('2008-11-12',33,-110,'gas',80,400,1),
-('2008-11-16',34,-111,'gas',90,500,1)
+('phx','az','2008-11-12',33,-110,'gas',80,400,1),
+('phx','az','2008-11-16',34,-111,'gas',90,500,1)
 ;
