@@ -13,8 +13,7 @@ module.exports={
     },
     getDriverTrips:async(req,res)=>{
         const db = req.app.get('db')        
-        const {driver_d_id}=req.params
-        console.log(driver_d_id)        
+        const {driver_d_id}=req.params             
         const trips=await db.trips.getDriverTrips([+driver_d_id])
         res.status(200).send(trips)
     },

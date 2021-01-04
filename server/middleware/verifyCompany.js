@@ -1,6 +1,4 @@
-module.exports=(req,res,next)=>{
-    console.log('params'+req.params.company_id)
-    console.log('sesh'+req.session.user.id)
+module.exports=(req,res,next)=>{    
     if(!req.session.user){
         res.status(404).send('Please Login first')
     }
