@@ -1,0 +1,8 @@
+@use '../styles/variables' as v;
+@use '../styles/styles' as s;
+
+.App {
+height: 100vh;
+background-color: v.$var;
+} 
+

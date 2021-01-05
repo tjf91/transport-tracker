@@ -4,8 +4,8 @@
 module.exports={
     getDrivers:async(req,res)=>{
         const db = req.app.get('db')        
-        const {company_id}=+req.params
-        const Drivers=await db.users.getDrivers([company_id])        
+        const {company_id}=req.params
+        const Drivers=await db.users.getDrivers([+company_id])        
         res.status(200).send(Drivers)
     },
     addDriver:async(req,res)=>{
