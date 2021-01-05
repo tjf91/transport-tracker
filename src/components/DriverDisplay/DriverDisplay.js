@@ -6,23 +6,37 @@ import Driver from '../Driver/Driver'
 
 function DriverDisplay(props){
     const [drivers,setDrivers]=useState([])
+    const [formToggle, setFormToggle]=useState(false)
+    const [formInput, setFormInput]=useState({name:'',password:'',phone_number:'',email:''})
 
-    const getCompanyDriverTrips=()=>{
-        console.log(props.match)
+    const handleFormInput=(e)=>{
+        setFormInput({...formInput,[e.target.name]:e.target.value})
+    }
+    const addDriver=(e)=>{
+        e.preventDefault()
+        axios.post(`/companies/${props.id}/drivers`,formInput)
+        .then(res=>setDrivers(res.data))
+        .catch(e=>console.log(e))
+        setFormToggle(false)
     }
 
-    const getDrivers=()=>{
+    const handleFormToggle=()=>{        
+        console.log(formToggle)
+        setFormToggle(!formToggle)
+    }
+
+    const getDrivers=()=>{        
         axios.get(`/companies/${props.id}/drivers`)
         .then(res=>setDrivers(res.data))
         .catch(e=>console.log(e))
     }
     
     useEffect(()=>{
-        console.log('get drivers')
-        getDrivers()        
+        getDrivers() 
+               
     },[])
     const mappedDrivers=drivers.map((driver,index)=>(
-            <Link onClick={getCompanyDriverTrips} to={`/${props.name}/${driver.d_id}/trips`}>
+            <Link to={`/${props.name}/${driver.d_id}/trips`}>
             <Driver
             driver={driver}
             key={driver.name}
@@ -33,7 +47,18 @@ function DriverDisplay(props){
     
     return(
         <div>
-            <button>Add Driver</button>            
+            <button onClick={handleFormToggle}>Add Driver</button>
+            {
+                formToggle&&
+            <form onSubmit={addDriver}>
+                <input onChange={handleFormInput} placeholder='name' name='name'/>
+                <input onChange={handleFormInput} placeholder='password' name='password' />
+                <input onChange={handleFormInput} placeholder='phone-number' name='phone_number'/>
+                <input onChange={handleFormInput} placeholder='email' name='email'/>
+                <button>Submit New Driver</button>
+            </form>            
+             
+            }
             {mappedDrivers}
         </div>
     )

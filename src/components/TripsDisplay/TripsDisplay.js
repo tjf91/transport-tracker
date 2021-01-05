@@ -1,16 +1,25 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import Trips from '../Trips/Trips'
+import { Link,withRouter } from 'react-router-dom'
 
 function TripDisplay(props){
     const [trips,setTrips]=useState([])
+    const [driverCompany, setDriverCompany]=useState('')
     const getCompanyDriverTrips=()=>{
-        console.log(props)
-    }
-
-    const getTrips=()=>{       
+        axios.get(`/companies/${props.id}/drivers/${props.match.params.driver_d_id}/trips`)
+        .then(res=>setTrips(res.data))
+        .catch(e=>console.error(e.response.data))        
+        }
+    const getDriverCompany=()=>{
+        axios.get(`/drivers/${props.d_id}/companies`)
+        .then(res=>{
+            console.log(res.data)
+            setDriverCompany(res.data.name)})
+        .catch(e=>console.log(e))        
+    }    
+    const getTrips=()=>{    
+        getDriverCompany()   
         props.id
         ?axios.get(`/companies/${props.id}/trips`)
         .then(res=>setTrips(res.data))
@@ -19,22 +28,25 @@ function TripDisplay(props){
         .then(res=>setTrips(res.data))
         .catch(e=>console.error(e.response.data))
     }
-    useEffect(()=>{        
-        getTrips()
-        getCompanyDriverTrips()
-    },[])
+
+    
+    useEffect(()=>{
+        props.id?getCompanyDriverTrips():getTrips()
+        },[])
+    
 
     const mappedTrips=trips.map((trip,index)=>(
-        <Trips
-                trip={trip}
-                key={trip.id}
-                 />
+        
+
+        <Link to={`/${props.name}/${props.match.params.driver_d_id||driverCompany}/trips/${trip.id}`}>
+        <div>{trip.name}</div>
+        </Link>
     )
 )
     return(
         <div>
             {mappedTrips}
-            <button onClick={getCompanyDriverTrips}>Click for trips</button>
+            <button onClick={()=>console.log(props)}>Click for props</button>
         </div>
     )
 }

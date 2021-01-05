@@ -1,0 +1,21 @@
+@use './variables' as v;
+
+form{
+    min-width: 200px;
+    max-width: 250px;    
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    input{
+        background-color: bisque;
+        border-radius: 10px;
+        &[name="total"]{
+            background-color: v.$accent2;
+        }
+        &[name="date_created"]{
+            color: blue;
+            
+        }
+        }
+    
+}

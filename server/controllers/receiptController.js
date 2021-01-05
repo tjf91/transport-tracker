@@ -9,15 +9,15 @@ module.exports={
         console.log(req.query)
         const db=req.app.get('db')
         const{driver_d_id}=req.params
-        const{order,type,state}=req.query
+        const{q}=req.query        
         let receipts        
-        switch(order){
+        switch(q){
             case 'oldest':
                 receipts=await db.receipts.getDriverReceiptsOldest([driver_d_id])
                 return res.status(200).send(receipts)
             case 'newest':
                 receipts=await db.receipts.getDriverReceipts([driver_d_id])
-                return res.status(200).send(receipts)
+                return res.status(200).send(receipts)            
             default:
                 receipts=await db.receipts.getDriverReceipts([driver_d_id])
                 return res.status(200).send(receipts)
@@ -27,10 +27,17 @@ module.exports={
     getTripReceipts:async(req,res)=>{
         const db=req.app.get('db')
         const{company_id,driver_d_id,trip_id}=+req.params
-        const receipts=await db.receipts.getTripReceipts([company_id,driver_d_id,trip_id])
+        const receipts=await db.receipts.getReceipts([company_id,driver_d_id,trip_id])
         res.status(200).send(receipts)
     },
-    addReceipt:async(req,res)=>{
+    addCompanyTripReceipt:async(req,res)=>{
+        const db=req.app.get('db')
+        const{trip_id}=req.params
+        const{city,state,date_created,lat,lng,type,amount,total}=req.body
+        const receipts=await db.receipts.addReceipt([city,state,date_created,lat,lng,type,amount,total,+trip_id])
+        res.status(201).send(receipts)
+    },
+    addDriverTripReceipt:async(req,res)=>{
         const db=req.app.get('db')
         const{trip_id}=req.params
         const{city,state,date_created,lat,lng,type,amount,total}=req.body
@@ -49,5 +56,17 @@ module.exports={
         const{receipt_id}=req.params        
         await db.receipts.deleteReceipt([+receipt_id])
         res.sendStatus(200)
+    },
+    getDriverTripReceipts:async(req,res)=>{
+        const db=req.app.get('db')
+        const {driver_d_id,trip_id}=req.params
+        const trips= await db.receipts.getDriverTripReceipts([+driver_d_id,+trip_id])
+        res.status(200).send(trips)
+    },
+    getCompanyDriverTripReceipts:async(req,res)=>{
+        const db=req.app.get('db')
+        const {company_id,trip_id}=req.params
+        const trips= await db.receipts.getCompanyDriverTripReceipts([+company_id,+trip_id])
+        res.status(200).send(trips)
     },
 }

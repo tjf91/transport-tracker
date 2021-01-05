@@ -30,24 +30,30 @@ app.get('/auth/user', authCtrl.getUserSession)
 
 app.get('/companies/:company_id/drivers',verifyCompany,driverCtrl.getDrivers)
 app.post('/companies/:company_id/drivers',verifyCompany,driverCtrl.addDriver)
+
 //TODO
 app.put('/companies/:company_id/drivers/driver_d_id',driverCtrl.editDriver)
 app.delete('/companies/:company_id/drivers/driver_d_id',driverCtrl.deleteDriver)
 
 app.get('/companies/:company_id/trips',verifyCompany,tripCtrl.getCompanyTrips)
 app.get('/companies/:company_id/drivers/:driver_d_id/trips',verifyCompanyDriver,tripCtrl.getCompanyDriverTrips)
+app.get('/drivers/:driver_d_id/companies',verifyDriver,driverCtrl.getDriverCompany)
 app.get('/drivers/:driver_d_id/trips',verifyDriver,tripCtrl.getDriverTrips)
 app.post('/companies/:company_id/drivers/:driver_d_id/trips',verifyCompanyDriver,tripCtrl.addTrip)
 app.put('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id',verifyCompanyDriver,tripCtrl.editTrip)
 app.delete('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id',verifyCompanyDriver,tripCtrl.deleteTrip)
 
-app.get('/companies/:company_id/receipts',verifyCompany,receiptCtrl.getCompanyReceipts)
-app.get('/drivers/:driver_d_id/receipts',verifyDriver,receiptCtrl.getDriverReceipts)
+app.get('/companies/:company_id/trips/:trip_id/receipts',verifyCompany,receiptCtrl.getCompanyDriverTripReceipts)
+app.post('/companies/:company_id/trips/:trip_id/receipts',verifyCompany,receiptCtrl.addCompanyTripReceipt)
+app.get('/drivers/:driver_d_id/trips/:trip_id/receipts',verifyDriver,receiptCtrl.getDriverTripReceipts)
+app.post('/drivers/:driver_d_id/trips/:trip_id/receipts',verifyDriver,receiptCtrl.addDriverTripReceipt)
+
+// app.get('/trips/:trip_id/receipts',verifyCompanyDriver,receiptCtrl.getReceipts)
 // app.get('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id/receipts',receiptCtrl.getTripReceipts)
 
-app.post('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id/receipts',verifyCompanyDriver,receiptCtrl.addReceipt)
-app.put('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id/receipts/:receipt_id',verifyCompanyDriver,receiptCtrl.editReceipt)
-app.delete('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id/receipts/:receipt_id',verifyCompanyDriver,receiptCtrl.deleteReceipt)
+// app.post('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id/receipts',verifyCompanyDriver,receiptCtrl.addReceipt)
+// app.put('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id/receipts/:receipt_id',verifyCompanyDriver,receiptCtrl.editReceipt)
+// app.delete('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id/receipts/:receipt_id',verifyCompanyDriver,receiptCtrl.deleteReceipt)
 
 
 massive({

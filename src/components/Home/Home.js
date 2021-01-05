@@ -11,7 +11,7 @@ function Home(props){
                    props.id&&
                    <div>
                         <DriverDisplay/>
-                        <TripDisplay />
+                        
                    </div>
                }
                {

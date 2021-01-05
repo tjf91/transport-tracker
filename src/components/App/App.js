@@ -1,4 +1,5 @@
 import './App.scss';
+import '../styles/styles.scss'
 import routes from '../routes'
 import Header from '../Header/Header';
 
