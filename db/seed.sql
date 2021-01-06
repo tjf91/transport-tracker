@@ -9,7 +9,7 @@ create table company_driver
 (id serial primary key, company_id int references companies(id), driver_d_id int references drivers(d_id));
 
 create table trips
-(id serial primary key, name varchar(100), total_spent int, date_start date, date_end date, driver_d_id int references drivers(d_id), company_id int references companies(id));
+(id serial primary key, name varchar(100), total_spent int, status varchar(20), date_start date, date_end date, driver_d_id int references drivers(d_id), company_id int references companies(id));
 
 create table receipts
 (id serial primary key, date_created date, lat int, lng int, type varchar(100),city varchar(100),state varchar(30) amount int, total int, trip_id int references trips(id));

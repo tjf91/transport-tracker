@@ -3,7 +3,7 @@ const initialState={
     name:'',
     id:null,
     d_id:null,
-    isLoggedIn:false,    
+    isLoggedIn:false,        
 }
 
 const LOGIN_USER='LOGIN_USER'

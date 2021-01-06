@@ -1,7 +1,8 @@
 @use '../styles/variables' as v;
 
 .App {
-height: 100vh;
+min-height: 100vh;
+max-height: 100%;
 background-color: v.$var;
 } 
 

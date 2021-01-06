@@ -22,6 +22,7 @@ app.use(
         cookie:{maxAge:1000*60*60*24*30}
     })
 )
+app.get('/secrets')
 
 app.post('/auth/register', authCtrl.register)
 app.post('/auth/login', authCtrl.login)
@@ -31,7 +32,6 @@ app.get('/auth/user', authCtrl.getUserSession)
 app.get('/companies/:company_id/drivers',verifyCompany,driverCtrl.getDrivers)
 app.post('/companies/:company_id/drivers',verifyCompany,driverCtrl.addDriver)
 
-//TODO
 app.put('/companies/:company_id/drivers/driver_d_id',driverCtrl.editDriver)
 app.delete('/companies/:company_id/drivers/driver_d_id',driverCtrl.deleteDriver)
 
@@ -39,7 +39,9 @@ app.get('/companies/:company_id/trips',verifyCompany,tripCtrl.getCompanyTrips)
 app.get('/companies/:company_id/drivers/:driver_d_id/trips',verifyCompanyDriver,tripCtrl.getCompanyDriverTrips)
 app.get('/drivers/:driver_d_id/companies',verifyDriver,driverCtrl.getDriverCompany)
 app.get('/drivers/:driver_d_id/trips',verifyDriver,tripCtrl.getDriverTrips)
+
 app.post('/companies/:company_id/drivers/:driver_d_id/trips',verifyCompanyDriver,tripCtrl.addTrip)
+
 app.put('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id',verifyCompanyDriver,tripCtrl.editTrip)
 app.delete('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id',verifyCompanyDriver,tripCtrl.deleteTrip)
 

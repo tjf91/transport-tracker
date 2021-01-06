@@ -20,8 +20,8 @@ module.exports={
     addTrip:async(req,res)=>{
         const db = req.app.get('db')
         const {company_id,driver_d_id}=req.params
-        const {name,date_start,date_end,total_spent}=req.body
-        const trips=await db.trips.addTrip([name,date_start,date_end,total_spent,+company_id,+driver_d_id])
+        const {name,date_start,date_end,total_spent,status}=req.body
+        const trips=await db.trips.addTrip([name,date_start,date_end,total_spent,+company_id,+driver_d_id,status])
         res.status(201).send(trips)
     },
     editTrip:async(req,res)=>{
@@ -37,4 +37,8 @@ module.exports={
         await db.trips.deleteTrip([+trip_id])
         res.sendStatus(200)
     },
+    //need function to get driver and company id from trip
+    getTripsDriverCompany:async(req,res)=>{
+
+    }
 }

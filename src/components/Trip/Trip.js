@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import ReceiptForm from '../Forms/ReceiptForm'
+import MapboxGL from '../MapboxGL/MapboxGL'
 
 function Trip (props){
     const [formToggle,setFormToggle]=useState(false)
@@ -26,6 +27,7 @@ function Trip (props){
             .catch(e=>console.log(e))
         }
     }
+
     const getCompanyDriverTripReceipts=()=>{
         console.log(props.match)
         axios.get(`/companies/${props.id}/trips/${props.match.params.trip_id}/receipts`)
@@ -56,7 +58,9 @@ function Trip (props){
                 setFormToggle={setFormToggle} 
                     />
                     
-            }       
+            } 
+            Hello
+            <MapboxGL />      
             {JSON.stringify(receipts)}               
         </div>
     )
