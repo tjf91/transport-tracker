@@ -20,7 +20,7 @@ function TripForm(props){
     return(
         <form onSubmit={handleBeginTrip}>
             <input value={trip.name} onChange={handleChange} name='name' placeholder='Name of Trip' />
-            <button>Start</button>            
+            <button onClick={console.log()}>Start</button>            
         </form>
     )
 } 

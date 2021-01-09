@@ -10,8 +10,7 @@ function Home(props){
                {
                    props.id&&
                    <div>
-                        <DriverDisplay/>
-                        
+                        <DriverDisplay/>                        
                    </div>
                }
                {

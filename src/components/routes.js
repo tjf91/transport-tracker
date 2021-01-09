@@ -11,6 +11,6 @@ export default (
     <Switch>        
         <Route exact path='/:name' component={Home}/>
         <Route exact path='/:company_name/:driver_d_id/trips' component={TripsDisplay} /> 
-        <Route exact path='/:company_name/:driver_d_id/trips/:trip_id' component={Trip} />    
+        <Route exact path='/:company_id/:driver_d_id/trips/:trip_id' component={Trip} />    
     </Switch>
 )

@@ -34,14 +34,14 @@ module.exports={
         const db=req.app.get('db')
         const{trip_id}=req.params
         const{city,state,date_created,lat,lng,type,amount,total}=req.body
-        const receipts=await db.receipts.addReceipt([city,state,date_created,lat,lng,type,amount,total,+trip_id])
+        const [receipts]=await db.receipts.addReceipt([city,state,date_created,lat,lng,type,amount,total,+trip_id])
         res.status(201).send(receipts)
     },
     addDriverTripReceipt:async(req,res)=>{
         const db=req.app.get('db')
         const{trip_id}=req.params
         const{city,state,date_created,lat,lng,type,amount,total}=req.body
-        const receipts=await db.receipts.addReceipt([city,state,date_created,lat,lng,type,amount,total,+trip_id])
+        const [receipts]=await db.receipts.addReceipt([city,state,date_created,lat,lng,type,amount,total,+trip_id])
         res.status(201).send(receipts)
     },
     editReceipt:async(req,res)=>{

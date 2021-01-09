@@ -3,65 +3,141 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import ReceiptForm from '../Forms/ReceiptForm'
+import moment from 'moment'
 import MapboxGL from '../MapboxGL/MapboxGL'
+import './Trip.scss'
+import Receipt from '../Receipt/Receipt'
+import Pie from '../Charts/Pie'
+import { wait } from '@testing-library/react'
 
 function Trip (props){
     const [formToggle,setFormToggle]=useState(false)
-    const [receipts,setReceipts]=useState([])   
+    const [receipts,setReceipts]=useState([])
+    const [driverPos,setDriverPos]=useState({lng:null,lat:null}) 
+    const [formReceipt, setFormReceipt]=useState({
+        city:null,
+        state:null,
+        date_created:moment(new Date()).format("yyyy-MM-DD"),
+        type:'gas',
+        amount:null,
+        total:null,
+        lat:null,
+        lng:null,
+    })    
+    //Company account get specific driver trips
+    const getCompanyDriverTripReceipts=()=>{        
+        axios.get(`/companies/${props.id}/trips/${props.match.params.trip_id}/receipts`)
+        .then(res=>setReceipts(res.data))
+        .catch(e=>console.log(e))        
+    } 
     const getDriverTripReceipts=()=>{
         console.log(props.match)
         axios.get(`/drivers/${props.d_id}/trips/${props.match.params.trip_id}/receipts`)
-        .then(res=>setReceipts(res.data))
-        .catch(e=>console.log(e))
-        console.log(receipts)
+        .then(res=>{
+            console.log(res.data)
+            setReceipts(res.data)})
+        .catch(e=>console.log(e))        
+    }
+    const getTrips=()=>{
+        if(props.id){
+            console.log('getting company driver receipts')
+            getCompanyDriverTripReceipts()
+        }
+        else{
+            console.log('getting driver receipts')
+            getDriverTripReceipts()
+        }
     }
     const addReceipt=(receipt)=>{
         if(props.id){
             axios.post(`/companies/${props.id}/trips/${props.match.params.trip_id}/receipts`,receipt)
             .then(res=>setReceipts([...receipts,res.data]))
             .catch(e=>console.log(e))
+            getTrips()
         }
         else{
             axios.post(`/drivers/${props.d_id}/trips/${props.match.params.trip_id}/receipts`,receipt)
             .then(res=>setReceipts([...receipts,res.data]))
             .catch(e=>console.log(e))
+            getTrips()
         }
     }
+    
+  
 
-    const getCompanyDriverTripReceipts=()=>{
-        console.log(props.match)
-        axios.get(`/companies/${props.id}/trips/${props.match.params.trip_id}/receipts`)
-        .then(res=>setReceipts(res.data))
-        .catch(e=>console.log(e))
-        console.log(receipts)
-    } 
     useEffect(()=>{
-        if(props.id){
-            getCompanyDriverTripReceipts()
-        }
-        else{
-            getDriverTripReceipts()
-        }        
+        getTrips()              
     },[])
     
     const handleFormToggle=()=>{        
         setFormToggle(!formToggle)}
     
+    const mappedReceipts=receipts.map((receipt,index)=>{
+        const editReceipt=()=>{
+            
+             axios.put(`/companies/${receipt.company_id}/drivers/${receipt.driver_d_id}/trips/${receipt.trip_id}/receipts/${receipt.id}`, formReceipt)
+             .then(res=>{
+                 setReceipts(res.data)
+                 //update trips
+                 console.log(res.data)
+                 getTrips()
+             })
+             .catch(e=>console.log(e))
+         }
+         const deleteReceipt=()=>{
+            axios.delete(`/companies/${receipt.company_id}/drivers/${receipt.driver_d_id}/trips/${receipt.trip_id}/receipts/${receipt.id}`)
+            .then(res=>{
+                
+                console.log(res.data)
+                getTrips()
+            })
+            .catch(e=>console.log(e))
+         }
+        //  console.log(moment(receipt.date_created).format("yyyy-MM-DD"))
     return(
         <div>
+            <Receipt 
+            editReceipt={editReceipt}
+            deleteReceipt={deleteReceipt}
+            receipt={receipt}
+            setReceipts={setReceipts}
+            receipts={receipts}
+            formReceipt={formReceipt}
+            setFormReceipt={setFormReceipt}
+            getTrips={getTrips}   
+            setFormToggle={setFormToggle}
+        date_created={moment(receipt.date_created).format("yyyy-MM-DD")}
+
+            />
+        </div>
+      
+    )    
+    })
+    
+   
+    return(
+        <div className='trip-display'>
             <button onClick={handleFormToggle}>Add Receipts</button>
             {
                 formToggle&&
                 <ReceiptForm
+                formReceipt={formReceipt}
+                setFormReceipt={setFormReceipt}
                 receipts={receipts}
                 addReceipt={addReceipt}
                 setFormToggle={setFormToggle} 
-                    />
-                    
+                    />                    
             } 
-            Hello
-            <MapboxGL />      
-            {JSON.stringify(receipts)}               
+            
+            <MapboxGL
+            formReceipt={formReceipt}
+            setFormReceipt={setFormReceipt}
+            receipts={receipts} 
+            d_id={props.d_id}
+            />            
+            
+            <Pie receipts={receipts}/>
+            {mappedReceipts}             
         </div>
     )
     }

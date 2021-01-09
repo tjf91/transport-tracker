@@ -1,0 +1,19 @@
+
+
+.receipts{
+    border: 1px solid black;
+    max-width: 400px;
+    border-radius: 10px;
+    background-color: blanchedalmond;
+    display: flex;   
+    justify-content: space-evenly;
+    p{
+        width: 15%;
+        img{
+            max-width: 30px;
+            position: relative;
+            bottom: 15px;
+            left: 60px;
+        }
+    }
+}

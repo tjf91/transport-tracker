@@ -1,1 +1,8 @@
-@use '../styles/variables'
+@use '../styles/variables';
+.trip-display{
+    display: flex;
+    flex-direction: column;
+    button{
+        width: 100px;
+    }        
+}

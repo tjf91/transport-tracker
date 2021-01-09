@@ -49,7 +49,7 @@ function TripDisplay(props){
 
     const mappedTrips=trips.map((trip,index)=>(       
         <div>
-        <Link to={`/${props.id?props.name:driverCompany}/${props.match.params.driver_d_id||props.d_id}/trips/${trip.id}`}>
+        <Link to={`/${props.id?props.id:driverCompanyId}/${props.match.params.driver_d_id||props.d_id}/trips/${trip.id}`}>
         <h4>{trip.name}</h4>
         <aside>Status:{trip.status}</aside>
         <Moment format="MM/DD/YYYY">{trip.date_start}</Moment>
@@ -59,7 +59,7 @@ function TripDisplay(props){
 )
         
     return(
-        <div className='trip-display'>
+        <div className='trips-display'>
             <h5>{driverCompany}</h5>
             <button onClick={handleFormToggle}>Begin Trip</button>
             {
