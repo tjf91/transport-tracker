@@ -57,11 +57,11 @@ module.exports={
         await db.receipts.deleteReceipt([+receipt_id])
         res.sendStatus(200)
     },
-    getDriverTripReceipts:async(req,res)=>{
+    getDriverTripReceipts:async(req,res)=>{        
         const db=req.app.get('db')
-        const {driver_d_id,trip_id}=req.params
-        const trips= await db.receipts.getDriverTripReceipts([+driver_d_id,+trip_id])
-        res.status(200).send(trips)
+        const {driver_d_id,trip_id}=req.params        
+        const trips= await db.receipts.getDriverTripReceipts([+driver_d_id,+trip_id]) 
+        res.status(200).send(trips)       
     },
     getCompanyDriverTripReceipts:async(req,res)=>{
         const db=req.app.get('db')
@@ -69,4 +69,17 @@ module.exports={
         const trips= await db.receipts.getCompanyDriverTripReceipts([+company_id,+trip_id])
         res.status(200).send(trips)
     },
+    getChartReceipts:async(req,res)=>{
+        const db=req.app.get('db')
+        const {trip_id}=req.params
+        const {q}=req.query
+        let trips
+        switch(q){
+            case 'tripTypeTotal':
+                trips=await db.charts.tripTypeTotal([+trip_id])
+                return res.status(200).send(trips)
+            default:
+                res.status(200).send(trips)
+        }
+    }
 }

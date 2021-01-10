@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Link,withRouter } from 'react-router-dom'
 import TripForm from '../Forms/TripForm'
 import './TripsDisplay.scss'
+import Pie from '../Charts/Pie';
 
 function TripDisplay(props){    
     const [trips,setTrips]=useState([])
@@ -53,6 +54,7 @@ function TripDisplay(props){
         <h4>{trip.name}</h4>
         <aside>Status:{trip.status}</aside>
         <Moment format="MM/DD/YYYY">{trip.date_start}</Moment>
+        <Pie />
         </Link>
         </div>
     )
