@@ -4,5 +4,13 @@
     flex-direction: column;
     button{
         width: 100px;
-    }        
+    }
+    .pie-chart{
+    height: 250px;
+    max-width: 350px;    
+}     
+    .bar-chart{
+    height: 250px;
+    max-width: 450px;
+    }
 }

@@ -6,6 +6,7 @@ import { Link,withRouter } from 'react-router-dom'
 import TripForm from '../Forms/TripForm'
 import './TripsDisplay.scss'
 import Pie from '../Charts/Pie';
+import Bar from '../Charts/Bar';
 
 function TripDisplay(props){    
     const [trips,setTrips]=useState([])
@@ -49,14 +50,32 @@ function TripDisplay(props){
     
 
     const mappedTrips=trips.map((trip,index)=>(       
-        <div>
+        <main>
         <Link to={`/${props.id?props.id:driverCompanyId}/${props.match.params.driver_d_id||props.d_id}/trips/${trip.id}`}>
         <h4>{trip.name}</h4>
         <aside>Status:{trip.status}</aside>
         <Moment format="MM/DD/YYYY">{trip.date_start}</Moment>
-        <Pie />
-        </Link>
+        <div className='display-pie-chart'>
+        <Pie
+        company_id={props.id||driverCompanyId}
+        driver_d_id={props.d_id||props.match.params.driver_d_id}
+        trip_id={trip.id}
+        margin={{ top: 40, right: 40, bottom: 40, left: 40}}
+        radialLabelsLinkDiagonalLength={5}
+        radialLabelsLinkHorizontalLength={0}
+        
+        />
         </div>
+            </Link>
+        <div className='display-bar-chart'>
+            <Bar
+            company_id={props.id||driverCompanyId}
+            driver_d_id={props.d_id||props.match.params.driver_d_id}
+            trip_id={trip.id}    
+            margin={{ top: 0, right: 130, bottom: 0, left: 60 }}       
+            />
+        </div>
+        </main>
     )
 )
         

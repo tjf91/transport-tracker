@@ -32,41 +32,39 @@ export default function Receipt (props){
         {props.receipt.date_created}
         </Moment>
         <br/>
-        </p>
-           <p>
             {props.receipt.type}
-        </p> 
-        <p>State {props.receipt.state}</p>
+        </p>            
+        <p>{props.receipt.city}, {props.receipt.state}</p>
         <p>
-         $ {props.receipt.total}
+         ${props.receipt.total}
         </p>
-        <p>
-        <img onClick={()=>{
-            props.setFormToggle(false)
-            setEditToggle(!editToggle)}} src={editPencil} alt=''/>
-            <br />
-            <img onClick={()=>{ 
-                window.confirm('You sure about erasing this receipts')&&
-                props.deleteReceipt()
-            }
-            }           
-            src={deleteIcon} alt=''/>
-        </p>
-        <div>
-                {editToggle&&
-                <ReceiptForm
-                formReceipt={props.receipt}
-                date_created={props.date_created}
-                setFormReceipt={props.setFormReceipt}
-                edit={true}
-                setEditToggle={setEditToggle}
-                editReceipt={props.editReceipt}
-                // receipts={receipts}
-                // addReceipt={addReceipt}
-                // setFormToggle={setFormToggle}
-                />
+            <div>
+                    {editToggle&&
+                    <ReceiptForm
+                    formReceipt={props.receipt}
+                    date_created={props.date_created}
+                    setFormReceipt={props.setFormReceipt}
+                    edit={true}
+                    setEditToggle={setEditToggle}
+                    editReceipt={props.editReceipt}
+                    // receipts={receipts}
+                    // addReceipt={addReceipt}
+                    // setFormToggle={setFormToggle}
+                    />
                 }
-            </div>
+                </div>
+        
+                <img onClick={()=>{
+                    props.setFormToggle(false)
+                    setEditToggle(!editToggle)}} src={editPencil} alt=''/>
+                    <br />
+                <img onClick={()=>{ 
+                    window.confirm('You sure about erasing this receipts')&&
+                    props.deleteReceipt()
+                    }
+                    }           
+                    src={deleteIcon} alt=''/>
+      
     </div>
     )
 }

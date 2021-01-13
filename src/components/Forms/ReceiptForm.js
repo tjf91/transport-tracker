@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import moment from 'moment'
+import moment from 'moment' 
 
 export default function ReceiptForm(props){
     const [date,setDate]=useState(moment(new Date()).format("yyyy-MM-DD"))
@@ -17,15 +17,20 @@ export default function ReceiptForm(props){
     const handleAddReceipt=(e)=>{
         e.preventDefault()
         props.addReceipt(props.formReceipt)
-        props.setFormToggle(false)  
+        props.setFormToggle(false) 
+        
     }
     const handleEditReceipt=(e)=>{
         e.preventDefault()
         props.editReceipt(props.formReceipt)
         props.setEditToggle(false)  
     }
-    console.log('wut',props.date_created)
+    
+    useEffect(()=>{
+        
+        console.log('receipt form ')
 
+    },[props.formReceipt])
     return(
         <div>
                 <form onSubmit={!props.edit?handleAddReceipt:handleEditReceipt}>

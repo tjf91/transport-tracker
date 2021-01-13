@@ -78,6 +78,9 @@ module.exports={
             case 'tripTypeTotal':
                 trips=await db.charts.tripTypeTotal([+trip_id])
                 return res.status(200).send(trips)
+            case 'tripStateTypeTotal':
+                trips=await db.charts.tripStateTypeTotal([+trip_id])
+                return res.status(200).send(trips)
             default:
                 res.status(200).send(trips)
         }

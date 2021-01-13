@@ -56,10 +56,10 @@ function MapboxGL(props){
             .addTo(map)
           })
           })
-        map.on('dblclick',(e)=>{
-         
-          // props.setFormReceipt({...props.formReceipt,...e.lngLat})
-          // setPos(e.lngLat)
+          
+         //reverse geolocation api call to get state and city name on map double click
+        map.on('dblclick',(e)=>{         
+          
           axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${e.lngLat.lng},${e.lngLat.lat}.json?access_token=${REACT_APP_MAPBOX_APIKEY}`)
           .then(res=>{
             console.log(res.data.features[res.data.features.length-3].place_name.split(','))
@@ -67,7 +67,18 @@ function MapboxGL(props){
             props.setFormReceipt({...props.formReceipt,...e.lngLat,city:placeArray[0],state:placeArray[1]})
           })
           .catch(e=>console.log(e))
-        })           
+        }) 
+        
+        if(props.d_id){
+          map.addControl(
+            new mapboxgl.GeolocateControl({
+            positionOptions: {
+            enableHighAccuracy: true
+            },
+            trackUserLocation: true
+            })
+          )
+        }
       },[props.receipts])
       
      

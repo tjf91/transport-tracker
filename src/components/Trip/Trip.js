@@ -8,13 +8,14 @@ import MapboxGL from '../MapboxGL/MapboxGL'
 import './Trip.scss'
 import Receipt from '../Receipt/Receipt'
 import Pie from '../Charts/Pie'
-import { wait } from '@testing-library/react'
+import Bar from '../Charts/Bar'
+
 
 function Trip (props){
     const [formToggle,setFormToggle]=useState(false)
     const [receipts,setReceipts]=useState([])
-    const [driverPos,setDriverPos]=useState({lng:null,lat:null}) 
-    const [formReceipt, setFormReceipt]=useState({
+    const [driverPos,setDriverPos]=useState({lng:null,lat:null})
+    const form={
         city:null,
         state:null,
         date_created:moment(new Date()).format("yyyy-MM-DD"),
@@ -23,13 +24,15 @@ function Trip (props){
         total:null,
         lat:null,
         lng:null,
-    })    
+    }
+    const [formReceipt, setFormReceipt]=useState(form)    
     //Company account get specific driver trips
     const getCompanyDriverTripReceipts=()=>{        
         axios.get(`/companies/${props.id}/trips/${props.match.params.trip_id}/receipts`)
         .then(res=>setReceipts(res.data))
         .catch(e=>console.log(e))        
     } 
+    //Driver account get specific trips
     const getDriverTripReceipts=()=>{
         console.log(props.match)
         axios.get(`/drivers/${props.d_id}/trips/${props.match.params.trip_id}/receipts`)
@@ -38,6 +41,7 @@ function Trip (props){
             setReceipts(res.data)})
         .catch(e=>console.log(e))        
     }
+    //conditional function to use appropriate call depending on account level
     const getTrips=()=>{
         if(props.id){
             console.log('getting company driver receipts')
@@ -48,17 +52,20 @@ function Trip (props){
             getDriverTripReceipts()
         }
     }
+
     const addReceipt=(receipt)=>{
         if(props.id){
             axios.post(`/companies/${props.id}/trips/${props.match.params.trip_id}/receipts`,receipt)
             .then(res=>setReceipts([...receipts,res.data]))
             .catch(e=>console.log(e))
+            setFormReceipt(form)            
             getTrips()
         }
         else{
             axios.post(`/drivers/${props.d_id}/trips/${props.match.params.trip_id}/receipts`,receipt)
             .then(res=>setReceipts([...receipts,res.data]))
             .catch(e=>console.log(e))
+            setFormReceipt(form) 
             getTrips()
         }
     }
@@ -66,7 +73,7 @@ function Trip (props){
   
 
     useEffect(()=>{
-        getTrips()              
+        getTrips()                      
     },[])
     
     const handleFormToggle=()=>{        
@@ -80,6 +87,7 @@ function Trip (props){
                  setReceipts(res.data)
                  //update trips
                  console.log(res.data)
+                 setFormReceipt(form)
                  getTrips()
              })
              .catch(e=>console.log(e))
@@ -96,7 +104,7 @@ function Trip (props){
         //  console.log(moment(receipt.date_created).format("yyyy-MM-DD"))
     return(
         <div>
-            <Receipt 
+            <Receipt             
             editReceipt={editReceipt}
             deleteReceipt={deleteReceipt}
             receipt={receipt}
@@ -135,8 +143,19 @@ function Trip (props){
             receipts={receipts} 
             d_id={props.d_id}
             />            
-            
-            <Pie receipts={receipts}/>
+            <div className='pie-chart'>
+            <Pie receipts={receipts}
+            margin={{ top: 30, right: 0, bottom: 30, left: 0 }}/>
+            </div>
+            <div className='bar-chart'>
+            <Bar 
+            company_id={props.match.params.company_id}
+            driver_d_id={props.match.params.driver_d_id}
+            trip_id={props.match.params.trip_id}
+            receipts={receipts}
+            margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+            />
+            </div>
             {mappedReceipts}             
         </div>
     )
