@@ -8,11 +8,12 @@ import 'dotenv'
 import { connect } from 'react-redux';
 import axios from 'axios';
 import fuel from '../imgs/favpng_fuel-dispenser-clip-art.png'
+import { withRouter } from 'react-router-dom';
 
 function MapboxGL(props){
     
   // const [marker, setMarker]= useState(null) 
-  const [pos, setPos]= useState({lat:0,lng:0})  
+  const [pos, setPos]= useState({lat:null,lng:null})  
   const mapContainer = useRef("");
   const [driverPos,setDriverPos]=useState({lng:null,lat:null})
   
@@ -35,19 +36,31 @@ function MapboxGL(props){
         })
         
         map.on('load',(e)=>{
-          console.log('Map Loading',props.receipts)
+          //get driver lat and lng to create marker
+          axios.get(`/companies/${props.match.params.company_id}/drivers?q=${props.match.params.driver_d_id}`)
+          .then(res=>{
+            const markerNode = document.createElement('div')
+            markerNode.className='driver-marker'
+            markerNode.style.backgroundImage='url(https://persona-project.s3-us-west-1.amazonaws.com/zog.jpg)'
+            console.log(markerNode)
+            new mapboxgl.Marker(
+              markerNode              
+              
+            )
+            .setLngLat(res.data).addTo(map)
+            console.log('new location',res.data)})
           const receiptMarkers=  props.receipts.map((receipt,index)=>{  
-         if(receipt.type==='gas'){
-
-          
-         }                         
+            let markerColors={gas:"#81ae19",food:"#f47560",tires:"#f1e15b",repair:'#61cdbb'}
+          let marker=                  
          new mapboxgl.Marker({
               
-              // color: "#06F4AF",
+              color: markerColors[receipt.type],
               draggable: false,              
               backgroundImage:  fuel,
               
-            }).setLngLat({lng:receipt.lng,lat:receipt.lat})            
+            })
+
+            marker.setLngLat({lng:receipt.lng,lat:receipt.lat})            
             .setPopup( new mapboxgl.Popup({ offset: 10,closeButton:false,className:"popup", })
             .setHTML(`<h5>${moment(receipt.date_created).format("MMM Do YY")}</h5>
             <p>${receipt.type}</p>
@@ -96,4 +109,4 @@ function MapboxGL(props){
 function mapStateToProps(reduxState){
   return reduxState
 }
-export default connect(mapStateToProps)(MapboxGL)
+export default connect(mapStateToProps)(withRouter(MapboxGL))

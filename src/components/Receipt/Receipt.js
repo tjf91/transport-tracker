@@ -56,14 +56,14 @@ export default function Receipt (props){
         
                 <img onClick={()=>{
                     props.setFormToggle(false)
-                    setEditToggle(!editToggle)}} src={editPencil} alt=''/>
+                    setEditToggle(!editToggle)}} src={editPencil} className='action-img' alt=''/>
                     <br />
                 <img onClick={()=>{ 
                     window.confirm('You sure about erasing this receipts')&&
                     props.deleteReceipt()
                     }
                     }           
-                    src={deleteIcon} alt=''/>
+                    src={deleteIcon} className='action-img' alt=''/>
       
     </div>
     )

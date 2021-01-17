@@ -10,6 +10,8 @@ const receiptCtrl = require('./controllers/receiptController')
 const verifyCompanyDriver=require('./middleware/verifyCompanyDriver')
 const verifyCompany=require('./middleware/verifyCompany')
 const verifyDriver=require('./middleware/verifyDriver')
+const { editDriver } = require('./controllers/driverController')
+const s3Ctrl = require('./controllers/s3Controller')
 
 const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET}=process.env
 
@@ -22,7 +24,7 @@ app.use(
         cookie:{maxAge:1000*60*60*24*30}
     })
 )
-app.get('/secrets')
+
 
 app.post('/auth/register', authCtrl.register)
 app.post('/auth/login', authCtrl.login)
@@ -31,19 +33,21 @@ app.get('/auth/user', authCtrl.getUserSession)
 
 app.get('/companies/:company_id/drivers',verifyCompany,driverCtrl.getDrivers)
 app.post('/companies/:company_id/drivers',verifyCompany,driverCtrl.addDriver)
+//used for location update
+app.put('/drivers/:driver_d_id', verifyDriver, driverCtrl.editDriver)
 
-// app.put('/companies/:company_id/drivers/driver_d_id',driverCtrl.editDriver)
+//endpoint used for profile pic update
+app.put('/companies/:company_id/drivers/:driver_d_id',verifyCompanyDriver,driverCtrl.editDriver)
 // app.delete('/companies/:company_id/drivers/driver_d_id',driverCtrl.deleteDriver)
 
-app.get('/companies/:company_id/trips',verifyCompany,tripCtrl.getCompanyTrips)
+// app.get('/companies/:company_id/trips',verifyCompany,tripCtrl.getCompanyTrips)
 app.get('/companies/:company_id/drivers/:driver_d_id/trips',verifyCompanyDriver,tripCtrl.getCompanyDriverTrips)
-app.get('/drivers/:driver_d_id/companies',verifyDriver,driverCtrl.getDriverCompany)
 app.get('/drivers/:driver_d_id/trips',verifyDriver,tripCtrl.getDriverTrips)
+app.get('/drivers/:driver_d_id/companies',verifyDriver,driverCtrl.getDriverCompany)
 
 app.post('/companies/:company_id/drivers/:driver_d_id/trips',verifyCompanyDriver,tripCtrl.addTrip)
-
 // app.put('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id',verifyCompanyDriver,tripCtrl.editTrip)
-// app.delete('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id',verifyCompanyDriver,tripCtrl.deleteTrip)
+app.delete('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id',verifyCompanyDriver,tripCtrl.deleteTrip)
 
 app.get('/companies/:company_id/trips/:trip_id/receipts',verifyCompany,receiptCtrl.getCompanyDriverTripReceipts)
 app.get('/drivers/:driver_d_id/trips/:trip_id/receipts',verifyCompanyDriver,receiptCtrl.getDriverTripReceipts)
@@ -56,6 +60,8 @@ app.get('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id/receipts',ve
 // app.get('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id/receipts',receiptCtrl.getTripReceipts)
 
 // app.post('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id/receipts',verifyCompanyDriver,receiptCtrl.addReceipt)
+
+app.get('/api/s3',s3Ctrl.s3)
 
 
 massive({

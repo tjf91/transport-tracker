@@ -21,6 +21,11 @@ export function logout(){
         type:LOGOUT
      }
 }
+// export function updateLocation(){
+//     return{
+        
+//     }
+// }
 
 export default function userReducer(state=initialState, action){
     switch(action.type){

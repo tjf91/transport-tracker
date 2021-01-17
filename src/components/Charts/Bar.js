@@ -10,8 +10,9 @@ export default function Bar(props){
     useEffect(()=>{        
         axios.get(`/companies/${props.company_id}/drivers/${props.driver_d_id}/trips/${props.trip_id}/receipts?q=tripStateTypeTotal`)
         .then(res=>{
-            console.log('bar',res.data)
-            const firstSort=res.data.map(receipt=>f.handleData(receipt))        
+            console.log('bar',res.data) 
+            //series of functions to get the data in the correct format to display on chart           
+            const firstSort=res.data.map(receipt=>f.handleData(receipt))      
                 
           const groupedStates = f.groupBy(firstSort);               
             let finalR=f.getStates(groupedStates)   
@@ -20,7 +21,7 @@ export default function Bar(props){
             })
         .catch(e=>console.error(e.response.data))
 
-    },[props.receipts])
+    },[props.receipts,props.trip_id])
 
     if(!state){
         return(

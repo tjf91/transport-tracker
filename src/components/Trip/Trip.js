@@ -28,14 +28,14 @@ function Trip (props){
     const [formReceipt, setFormReceipt]=useState(form)    
     //Company account get specific driver trips
     const getCompanyDriverTripReceipts=()=>{        
-        axios.get(`/companies/${props.id}/trips/${props.match.params.trip_id}/receipts`)
+        axios.get(`/companies/${props.match.params.company_id}/trips/${props.match.params.trip_id}/receipts`)
         .then(res=>setReceipts(res.data))
         .catch(e=>console.log(e))        
     } 
     //Driver account get specific trips
     const getDriverTripReceipts=()=>{
         console.log(props.match)
-        axios.get(`/drivers/${props.d_id}/trips/${props.match.params.trip_id}/receipts`)
+        axios.get(`/drivers/${props.match.params.driver_d_id}/trips/${props.match.params.trip_id}/receipts`)
         .then(res=>{
             console.log(res.data)
             setReceipts(res.data)})
@@ -43,12 +43,13 @@ function Trip (props){
     }
     //conditional function to use appropriate call depending on account level
     const getTrips=()=>{
+         
         if(props.id){
             console.log('getting company driver receipts')
             getCompanyDriverTripReceipts()
         }
         else{
-            console.log('getting driver receipts')
+            
             getDriverTripReceipts()
         }
     }
@@ -73,6 +74,7 @@ function Trip (props){
   
 
     useEffect(()=>{
+        if(props.id||props.d_id)
         getTrips()                      
     },[])
     

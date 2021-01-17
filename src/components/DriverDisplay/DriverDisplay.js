@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import Driver from '../Driver/Driver'
+import DriverEdit from '../Driver/DriverEdit'
 
 function DriverDisplay(props){
     const [drivers,setDrivers]=useState([])
@@ -36,12 +37,16 @@ function DriverDisplay(props){
                
     },[])
     const mappedDrivers=drivers.map((driver,index)=>(
-            <Link to={`/${props.name}/${driver.d_id}/trips`}>
+        <div>
+            <Link to={{pathname:`/${props.name}/${driver.d_id}/trips`,driver}}>
+                {driver.name}
+                </Link>
             <Driver
             driver={driver}
-            key={driver.name}
+            key={driver.d_id}
             />
-            </Link>
+           
+            </div>
         )
     )
     
@@ -54,7 +59,7 @@ function DriverDisplay(props){
                 <input onChange={handleFormInput} placeholder='name' name='name'/>
                 <input onChange={handleFormInput} placeholder='password' name='password' />
                 <input onChange={handleFormInput} placeholder='phone-number' name='phone_number'/>
-                <input onChange={handleFormInput} placeholder='email' name='email'/>
+                <input onChange={handleFormInput} placeholder='email' name='email'/>                
                 <button>Submit New Driver</button>
             </form>            
              
