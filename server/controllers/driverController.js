@@ -10,7 +10,8 @@ module.exports={
         if(q){
             console.log('query')
             const [location] = await db.users.getDriverLocation([+q])
-            return res.status(200).send(location)
+            const [profile_pic]=await db.users.getDriverPic([+q])
+            return res.status(200).send([location,profile_pic])
         }
         else{
             console.log('normal')
@@ -40,17 +41,17 @@ module.exports={
         const db = req.app.get('db')
         const {company_id,driver_d_id}=req.params
         const{name,phone_number,email,password,lng,lat,url}=req.body
-        const q=req.query
+        const {q}=req.query
         console.log(req.body)
-        if(q.q==='location'){
+        if(q==='location'){
             console.log([lat,lng])
             const [driver]=await db.users.addDriverLocation([lng,lat,driver_d_id])
             return res.status(200).send(driver)
         }
-        if(q.q==='profile_pic'){
+        if(q==='profile_pic'){
             console.log(url)
-            const [driver]=await db.users.updateDriverProfilePic([url,driver_d_id])            
-            return res.status(200).send(driver)
+            await db.users.updateDriverProfilePic([url,driver_d_id])            
+            return res.status(200).send(url)
         }
     },
     deleteDriver:async(req,res)=>{

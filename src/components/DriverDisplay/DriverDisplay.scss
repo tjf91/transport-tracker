@@ -1,0 +1,11 @@
+.driver-display{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+    text-align: center;
+    
+    button{
+        width: 100px;
+    }
+}

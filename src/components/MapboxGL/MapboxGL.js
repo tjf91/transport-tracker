@@ -41,14 +41,15 @@ function MapboxGL(props){
           .then(res=>{
             const markerNode = document.createElement('div')
             markerNode.className='driver-marker'
-            markerNode.style.backgroundImage='url(https://persona-project.s3-us-west-1.amazonaws.com/zog.jpg)'
+            markerNode.style.backgroundImage=`url(${res.data[1].profile_pic})`
             console.log(markerNode)
+            console.log('new location',res.data)
             new mapboxgl.Marker(
               markerNode              
               
             )
-            .setLngLat(res.data).addTo(map)
-            console.log('new location',res.data)})
+            .setLngLat(res.data[0]).addTo(map)
+          })
           const receiptMarkers=  props.receipts.map((receipt,index)=>{  
             let markerColors={gas:"#81ae19",food:"#f47560",tires:"#f1e15b",repair:'#61cdbb'}
           let marker=                  

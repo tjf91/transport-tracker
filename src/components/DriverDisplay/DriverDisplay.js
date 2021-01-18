@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import Driver from '../Driver/Driver'
 import DriverEdit from '../Driver/DriverEdit'
+import DriverMap from '../MapboxGL/DriverMap'
+import './DriverDisplay.scss'
 
 function DriverDisplay(props){
     const [drivers,setDrivers]=useState([])
@@ -37,7 +39,7 @@ function DriverDisplay(props){
                
     },[])
     const mappedDrivers=drivers.map((driver,index)=>(
-        <div>
+        <div  >
             <Link to={{pathname:`/${props.name}/${driver.d_id}/trips`,driver}}>
                 {driver.name}
                 </Link>
@@ -51,7 +53,8 @@ function DriverDisplay(props){
     )
     
     return(
-        <div>
+        <div className='driver-display'>
+            <DriverMap />
             <button onClick={handleFormToggle}>Add Driver</button>
             {
                 formToggle&&

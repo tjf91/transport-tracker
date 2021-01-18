@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DriverEdit from './DriverEdit'
 import './Driver.scss'
+import { Link } from 'react-router-dom'
 
 export default function Driver(props){
     const [formToggle, setFormToggle]=useState(false)
@@ -11,13 +12,15 @@ export default function Driver(props){
         setDriverPic(pic)
     }
 
-    useEffect(()=>{
-        setDriverPic(props.driver.profile_pic)
-    },[props.driver])
+    // useEffect(()=>{
+    //     setDriverPic()
+    // },[props.driver.profile_pic])
 
     return(
         <div key={props.driver.d_id} className='driver'>
-            <img src={driverPic} alt='profile pic' className='profile-pic'/>
+            <Link to={`/${props.name}/${props.driver.d_id}/trips`}>
+            <img src={props.driver.profile_pic} alt='profile pic' className='profile-pic'/>
+            </Link>
             {props.driver.name}
             {
                 props.driver.profile_pic

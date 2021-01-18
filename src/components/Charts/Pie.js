@@ -21,7 +21,7 @@ function Pie(props){
             console.log("chart data from state",state)})
         .catch(e=>console.error(e.response.data))
 
-    },[props.receipts])
+    },[props.receipts,props.trip_id])
     if(!state){
         
         return(
