@@ -33,8 +33,8 @@ function Auth(props){
     return(
         <form  onSubmit={handleAuthSubmit} className='auth-form'>
             <TextField onChange={handleLoginInput} name='name' placeholder='username' value={loginInput.name}/>            
-            <TextField onChange={handleLoginInput} name='password' placeholder='password' value={loginInput.password}/>            
-            <Button type='submit' variant="contained" disabled={buttonOff} >Login</Button>
+            <TextField onChange={handleLoginInput} type='password' name='password' placeholder='password' value={loginInput.password}/>            
+            <Button id='login' type='submit' variant="contained" disabled={buttonOff} >Login</Button>
             {errMsg}
           
         </form>

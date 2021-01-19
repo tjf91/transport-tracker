@@ -31,14 +31,14 @@ import {loginUser} from '../../redux/userReducer'
 
     return(
         <div>
-            <Button color='primary' onClick={handleToggle}>
+            <Button id='register' onClick={handleToggle}>
                 Register
             </Button>
             {toggleForm&&
             <div>
                 <form onSubmit={handleAddCompany} className='register-form'>
                 <TextField onChange={handleLoginInput} name='name' placeholder='username' />            
-                <TextField onChange={handleLoginInput} name='password' placeholder='password' />            
+                <TextField onChange={handleLoginInput} type='password' name='password' placeholder='password' />            
                 <TextField onChange={handleLoginInput} name='phone_number' placeholder='phone_number' />            
                 <TextField onChange={handleLoginInput} name='email' placeholder='email'           
            error helperText={error}/>            

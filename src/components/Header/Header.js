@@ -65,7 +65,7 @@ function Header(props){
             }
             {
                 props.isLoggedIn
-                ?<Button variant="contained" onClick={handleLogout}>Logout</Button>
+                ?<Button id='logout' onClick={handleLogout}>Logout</Button>
                 :<Auth /> 
                     
                     

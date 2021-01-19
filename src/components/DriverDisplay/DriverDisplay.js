@@ -6,6 +6,9 @@ import Driver from '../Driver/Driver'
 import DriverEdit from '../Driver/DriverEdit'
 import DriverMap from '../MapboxGL/DriverMap'
 import './DriverDisplay.scss'
+import '../styles/styles.scss'
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 
 function DriverDisplay(props){
@@ -61,7 +64,7 @@ function DriverDisplay(props){
             <DriverMap
             drivers={drivers}
              />
-            <button onClick={handleFormToggle}>Add Driver</button>
+            <Button variant='contained' id='add-driver' onClick={handleFormToggle}>Add Driver</Button>
             {
                 formToggle&&
             <form onSubmit={addDriver}>

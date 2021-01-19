@@ -4,9 +4,12 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Link,withRouter } from 'react-router-dom'
 import TripForm from '../Forms/TripForm'
+import '../styles/styles.scss'
 import './TripsDisplay.scss'
 import Pie from '../Charts/Pie';
 import Bar from '../Charts/Bar';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import editPencil from '../imgs/favpng_icon-design-editing-iconfinder-icon.png'
 import deleteIcon from '../imgs/favpng_button-checkbox.png'
 
@@ -27,7 +30,8 @@ function TripDisplay(props){
             setDriverCompanyId(res.data.id)
             setDriverCompany(res.data.name)})
         .catch(e=>console.log(e))   
-    }    
+    } 
+    //this was in case of multiple companies per driver, really unnecessary this way.    
     const getTrips=()=>{    
         if(props.id){
             axios.get(`/companies/${props.id}/drivers/${props.match.params.driver_d_id}/trips`)
@@ -137,7 +141,7 @@ function TripDisplay(props){
     return(
         <div className='trips-display'>
             <h5>{driverCompany}</h5>            
-            <button onClick={handleFormToggle}>Begin Trip</button>
+            <Button id='begin' variant="contained"  onClick={handleFormToggle}>Begin Trip</Button>
             <img key={Date.now()} src={props.profile_pic}  className='profile-pic' alt='Please add pic'/>
             {
                 toggleForm&&

@@ -7,7 +7,7 @@ form{
     flex-direction: column;
     justify-content: center;    
     text-align: center;
-    background-color: v.$accent3;
+    background-color: inherit;
     border-radius: 10px;
     
     input{
@@ -21,6 +21,7 @@ form{
             
         }
         }
+        
     
 }
 .action-img{
@@ -34,4 +35,24 @@ form{
     max-height: 200px;
     max-width:  200px;
     border-radius: 50%;
+}
+#login{
+    background-color: v.$accent2;
+}
+#begin{
+    background-color: v.$accent1;
+}
+#register{
+    background-color: v.$accent1;
+}
+#logout{
+    background-color: v.$accent2;
+}
+#add-driver{    
+    background-color: v.$accent1;
+    height: 50px;
+    width: 150px;
+}
+#options{
+    background-color: v.$accent1;
 }

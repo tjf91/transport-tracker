@@ -4,16 +4,32 @@ import './Driver.scss'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {updateProfilePic} from '../../redux/userReducer'
+import '../styles/styles.scss'
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 function Driver(props){
     const [formToggle, setFormToggle]=useState(false)
     const [driverPic, setDriverPic]=useState(props.driver.profile_pic)
+    const [anchorEl, setAnchorEl] = useState(null);
     const handleFormToggle=()=>{        
-        setFormToggle(!formToggle)}
+        setFormToggle(!formToggle)
+        handleClose()    
+    }
     const updatePic =()=>{
         setDriverPic(`https://persona-project.s3-us-west-1.amazonaws.com/${props.driver.name.replace(/\s/g, '-')}-${props.driver.driver_d_id}-profile_pic`)       
         
     }
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+      };
+    
+      const handleClose = () => {
+        setAnchorEl(null);
+      };
 
     useEffect(()=>{
         updatePic()
@@ -26,9 +42,23 @@ function Driver(props){
             </Link>
             {props.driver.name}
             {
-                props.driver.profile_pic
-                ?<button onClick={handleFormToggle}>Edit</button>                
-                :<button onClick={handleFormToggle}>Add Pic</button>
+                // props.driver.profile_pic
+                // ?<Button variant='contained' onClick={handleFormToggle}>Edit</Button>                
+                // :
+                <div>
+                <Button id='options' aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} variant='contained'>Options</Button>
+                <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                >
+                <MenuItem onClick={handleFormToggle}>Change Picture</MenuItem>
+                <MenuItem onClick={handleClose}>Reset Password</MenuItem>
+                <MenuItem onClick={handleClose}>Delete Driver</MenuItem>
+              </Menu>
+                  </div>
             }
             {
                 formToggle&&
