@@ -29,7 +29,8 @@ function Header(props){
         updateLocation()
       }
     function errorLocation(e){
-      setPos({longitude:null,latitude:null})
+        console.log('ERROR LOCATION')
+      
     }
     
     useEffect(()=>{
@@ -42,12 +43,12 @@ function Header(props){
     
     useEffect(()=>{
         if(props.d_id){   
-                navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true})         
+                // navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true})         
                 const interval= setInterval(()=>{
                 console.log('Interval!')
                 navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true}) 
                 
-                  },30000)
+                  },10000)
                   return ()=>clearInterval(interval)
                 }
     })
