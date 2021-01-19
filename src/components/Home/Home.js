@@ -7,6 +7,7 @@ function Home(props){
 
     return(
         <main>
+            
                {
                    props.id&&
                    <div>
@@ -19,6 +20,7 @@ function Home(props){
                         <TripDisplay />
                    </div>
                }
+               
         </main>
     )
 }

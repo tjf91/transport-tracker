@@ -3,6 +3,7 @@ import axios from "axios"
 import React, {useEffect, useState} from 'react'
 import options from './options'
 import f from './barFunctions'
+import { GridLoader } from 'react-spinners'
 
 export default function Bar(props){
     const[state,setState]=useState(null)
@@ -25,7 +26,7 @@ export default function Bar(props){
 
     if(!state){
         return(
-            <div>Loading</div>
+            <GridLoader />
         )
     }
     else{    

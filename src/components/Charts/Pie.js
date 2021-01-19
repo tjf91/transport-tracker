@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react"
 import { withRouter } from "react-router-dom"
 import './Pie.scss'
 import options from './options'
-
+import { GridLoader } from 'react-spinners'
 
 function Pie(props){   
     const [state,setState]=useState(null)
@@ -25,7 +25,7 @@ function Pie(props){
     if(!state){
         
         return(
-            <div>Loading</div>
+            <GridLoader />
         )
     }
     else{             

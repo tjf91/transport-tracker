@@ -6,6 +6,8 @@ import logo from '../imgs/favpng_truck-driver-car-less-than-truckload-shipping-d
 import { Link, withRouter } from 'react-router-dom'
 import {loginUser,logout} from '../../redux/userReducer'
 import axios from 'axios'
+import Button from '@material-ui/core/Button';
+
 
 function Header(props){
     const [pos, setPos]= useState({longitude:null,latitude:null})
@@ -39,7 +41,8 @@ function Header(props){
     },[])
     
     useEffect(()=>{
-        if(props.d_id){            
+        if(props.d_id){   
+                navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true})         
                 const interval= setInterval(()=>{
                 console.log('Interval!')
                 navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true}) 
@@ -56,13 +59,21 @@ function Header(props){
             </Link>
             {
             props.isLoggedIn
-            ?<h1>Welcome {props.name}<button onClick={handleLogout}>Logout</button></h1>
-            :<Auth /> 
-            }    
-            {
-                props.d_id&&
-                <button onClick={updateLocation}>Update Location</button>
+            ?<h1>Welcome<br/> {props.name}</h1>
+            :<h1>Transport Tracker</h1>
             }
+            {
+                props.isLoggedIn
+                ?<Button variant="contained" onClick={handleLogout}>Logout</Button>
+                :<Auth /> 
+                    
+                    
+            }
+                
+                
+            
+                
+            
         </header>
     )
 }

@@ -78,7 +78,7 @@ function TripDisplay(props){
                
         <main>
         <div className='trip-title'>
-        <Link to={`/${props.id?props.id:driverCompanyId}/${props.match.params.driver_d_id||props.d_id}/trips/${trip.id}`}>
+        <Link to={{pathname:`/${props.id?props.id:driverCompanyId}/${props.match.params.driver_d_id||props.d_id}/trips/${trip.id}`,driver:props.location.driver}}>
         <h4>{trip.name}</h4>
         <aside>Status:{trip.status}</aside>
         <Moment format="MM/DD/YYYY">{trip.date_start}</Moment>
@@ -138,6 +138,7 @@ function TripDisplay(props){
         <div className='trips-display'>
             <h5>{driverCompany}</h5>            
             <button onClick={handleFormToggle}>Begin Trip</button>
+            <img key={Date.now()} src={props.profile_pic}  className='profile-pic' alt='Please add pic'/>
             {
                 toggleForm&&
                 <TripForm 

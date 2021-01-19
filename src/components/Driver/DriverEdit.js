@@ -40,8 +40,9 @@ export default function DriverEdit (props){
                axios.put(`/companies/${props.driver.company_id}/drivers/${props.driver.driver_d_id}?q=profile_pic`, {url})
             .then(res=>{
                 console.log('res.data from the db request',res.data)
-                props.updatePic(url)})
+                props.updatePic()})
             .catch(e=>console.log(e))
+            
            props.handleFormToggle(false)
         })
            .catch(e=>{

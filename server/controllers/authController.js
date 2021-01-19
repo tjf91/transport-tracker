@@ -19,12 +19,14 @@ module.exports={
         const {name,password}=req.body
         const [existingCompany]=await db.users.checkCompany([name])        
         const [existingDriver]=await db.users.checkDriver([name])        
-        const userFound=existingCompany||existingDriver  
+        const userFound=existingCompany||existingDriver
+        console.log(userFound)  
         if(!userFound) return res.status(404).send('No Company or Driver by that name found')
         const isAuth=bcrypt.compareSync(password,userFound.hash)
         if(!isAuth)return res.status(403).send('Incorrect Password')
         delete userFound.hash
         req.session.user=userFound
+        console.log('userfoudn',userFound)
         res.status(200).send(userFound)
 
     },

@@ -6,9 +6,11 @@ import ReceiptForm from '../Forms/ReceiptForm'
 import moment from 'moment'
 import MapboxGL from '../MapboxGL/MapboxGL'
 import './Trip.scss'
+import '../styles/styles.scss'
 import Receipt from '../Receipt/Receipt'
 import Pie from '../Charts/Pie'
 import Bar from '../Charts/Bar'
+import { GridLoader } from 'react-spinners'
 
 
 function Trip (props){
@@ -127,7 +129,9 @@ function Trip (props){
    
     return(
         <div className='trip-display'>
+            <img key={Date.now()} src={props.profile_pic } className='profile-pic'   alt=''/>
             <button onClick={handleFormToggle}>Add Receipts</button>
+            <button>Edit Trip</button>
             {
                 formToggle&&
                 <ReceiptForm

@@ -80,10 +80,7 @@ module.exports={
                 return res.status(200).send(trips)
             case 'tripStateTypeTotal':
                 trips=await db.charts.tripStateTypeTotal([+trip_id])
-                return res.status(200).send(trips)
-            case 'totalReceipts':
-                let [total]=await db.trips.getTotalReceipts([+trip_id])                
-                return res.status(200).send(total)
+                return res.status(200).send(trips)            
             default:
                 res.status(200).send(trips)
         }

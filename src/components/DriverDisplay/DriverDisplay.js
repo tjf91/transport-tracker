@@ -7,6 +7,7 @@ import DriverEdit from '../Driver/DriverEdit'
 import DriverMap from '../MapboxGL/DriverMap'
 import './DriverDisplay.scss'
 
+
 function DriverDisplay(props){
     const [drivers,setDrivers]=useState([])
     const [formToggle, setFormToggle]=useState(false)
@@ -33,19 +34,22 @@ function DriverDisplay(props){
         .then(res=>setDrivers(res.data))
         .catch(e=>console.log(e))
     }
+    const forceUpdate=()=>{
+        console.log('getting drivers again')
+        getDrivers()
+    }
     
     useEffect(()=>{
         getDrivers() 
                
     },[])
     const mappedDrivers=drivers.map((driver,index)=>(
-        <div  >
-            <Link to={{pathname:`/${props.name}/${driver.d_id}/trips`,driver}}>
-                {driver.name}
-                </Link>
+        <div key={driver.d_id} className='drivers'>
+            
             <Driver
             driver={driver}
             key={driver.d_id}
+            forceUpdate={forceUpdate}
             />
            
             </div>
@@ -54,7 +58,9 @@ function DriverDisplay(props){
     
     return(
         <div className='driver-display'>
-            <DriverMap />
+            <DriverMap
+            drivers={drivers}
+             />
             <button onClick={handleFormToggle}>Add Driver</button>
             {
                 formToggle&&

@@ -13,25 +13,21 @@ const { REACT_APP_MAPBOX_APIKEY} = process.env;
 function DriverMap(props){
     
     const mapContainer = useRef("");
-    const [drivers,setDrivers]=useState([])
-    const goToTrips=(id)=>{
-        console.log('driver id',id)
-        // props.history.push(`/${props.name}/${id}/trips`)
-    }
-
+    
+    
     mapboxgl.accessToken = REACT_APP_MAPBOX_APIKEY
     const styles = {
         width: "400px",
         height: "400px",
         borderRadius: "10px"        
-      };
+    };
     useEffect(()=>{
         let map=new mapboxgl.Map({
             container:mapContainer.current,
             style:'mapbox://styles/mapbox/streets-v11',
             center:[-111,33],
             zoom:3
-          })
+        })
         map.on('load',(e)=>{
             //get driver lat and lng to create marker
             axios.get(`/companies/${props.id}/drivers`)
@@ -41,24 +37,25 @@ function DriverMap(props){
                 res.data.map(driver=>{
                     const markerNode = document.createElement('div')
                     markerNode.className='driver-marker'
-                    markerNode.style.backgroundImage=`url(${driver.profile_pic})`                    
-                  new mapboxgl.Marker(
-                      markerNode            
-
-                      )
-                      .setLngLat({lng:driver.lng,lat:driver.lat})
-                      .setPopup( new mapboxgl.Popup({ offset: 10,className:"popup"})
-                      .setHTML(`<h3>${driver.name}</h3>
-                                <br />
-                                <button onClick=${()=>{
-                                    goToTrips(driver.d_id)}}>Go to Trips</button>`))
-                      .addTo(map)
+                    markerNode.style.backgroundImage=`url(https://persona-project.s3-us-west-1.amazonaws.com/${driver.name.replace(/\s/g, '-')}-${driver.driver_d_id}-profile_pic)`
+                    
+                              
+                    new mapboxgl.Marker(
+                        markerNode            
+                        
+                        )
+                        .setLngLat({lng:driver.lng,lat:driver.lat})
+                        .setPopup( new mapboxgl.Popup()
+                        .setHTML(`<h3>${driver.name}</h3>`)
+                        )
+                        .addTo(map)
+                        
               })
                 
             })
         })
 
-    },[drivers])
+    },[props.drivers])
 
     return(
         <div ref={(el) => (mapContainer.current = el)} style={styles} />

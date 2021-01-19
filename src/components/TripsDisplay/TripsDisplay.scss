@@ -8,12 +8,14 @@
    
     main{              
         font-size: larger;        
+        img{
+            border-radius: 50%;
+            max-height: 100px;
+
+        }  
         background-color: rosybrown;
         border: 1px black solid;
         display: flex;
-        img{
-            
-        }  
         flex-direction: column;      
     }
     
