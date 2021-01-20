@@ -53,7 +53,9 @@ import {loginUser} from '../../redux/userReducer'
                 <br />
                 Give your driver/s their credentials and start tracking their trip
                 <br />
-                You can double click on the mini map to autofill the location
+                Create a trip and start adding receipts 
+                <br />
+                You can <strong>double click on the mini map </strong>to autofill the location
                 <br />
                 The driver account can also quickly add a receipt at their current location
                 <br />
@@ -64,9 +66,7 @@ import {loginUser} from '../../redux/userReducer'
             <div>
             <img alt=''/>
             </div>
-            <div>
-            <img src='https://persona-project.s3-us-west-1.amazonaws.com/receipt+page.PNG' alt=''/>
-            </div>
+           
         </div>
     )
 }

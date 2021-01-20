@@ -109,7 +109,8 @@ function TripDisplay(props){
           onChange={(e)=>{          
             axios.put(`/companies/${props.id||driverCompanyId}/drivers/${props.d_id||props.match.params.driver_d_id}/trips/${trip.id}`,{...trip,status:e.target.value,date_end:moment(new Date()).format("yyyy-MM-DD")})
             .then(res=>{
-                setTrips([...trips,res.data])
+                getTrips()
+                // setTrips([...trips,res.data])
                 
             })
             .catch(e=>console.log(e))

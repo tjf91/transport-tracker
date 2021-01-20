@@ -8,6 +8,7 @@ header{
     button{
         height: 25px;        
     }
+    text-align: center;
 }
 
 @media(min-width:800px){
@@ -16,6 +17,6 @@ header{
         max-width: 200px;
     }
  header{
-     justify-content: space-around;
+     justify-content: space-evenly;
  }
 }
