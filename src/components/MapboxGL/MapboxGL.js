@@ -63,9 +63,9 @@ function MapboxGL(props){
 
             marker.setLngLat({lng:receipt.lng,lat:receipt.lat})            
             .setPopup( new mapboxgl.Popup({ offset: 10,closeButton:false,className:"popup", })
-            .setHTML(`<h5>${moment(receipt.date_created).format("MMM Do YY")}</h5>
+            .setHTML(`<h5>${moment(receipt.date_created).format("MMM Do YYYY")}</h5>
             <p>${receipt.type}</p>
-            <p>${receipt.total}</p>            
+            <p>$ ${receipt.total}</p>            
             `))
             .addTo(map)
           })
@@ -84,6 +84,7 @@ function MapboxGL(props){
         }) 
         
         if(props.d_id){
+          map.addControl(map, 'top-left');
           map.addControl(
             new mapboxgl.GeolocateControl({
             positionOptions: {

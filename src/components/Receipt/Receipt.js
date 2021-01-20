@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
 import Moment from 'react-moment'
-import moment from 'moment'
 import ReceiptForm from '../Forms/ReceiptForm'
 import editPencil from '../imgs/favpng_icon-design-editing-iconfinder-icon.png'
 import deleteIcon from '../imgs/favpng_button-checkbox.png'
 import './Receipt.scss'
-import axios from 'axios'
-
 
 
 export default function Receipt (props){

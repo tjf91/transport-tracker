@@ -30,7 +30,7 @@ import {loginUser} from '../../redux/userReducer'
     }
 
     return(
-        <div>
+        <div className='welcome'>
             <Button id='register' onClick={handleToggle}>
                 Register
             </Button>
@@ -46,15 +46,26 @@ import {loginUser} from '../../redux/userReducer'
 
                 </form>
                 </div>}
-            <div>
-                <img alt=''/>
-
-            </div>
+            <p>                
+                Register a company
+                <br />
+                Create Driver accounts and see them on the map
+                <br />
+                Give your driver/s their credentials and start tracking their trip
+                <br />
+                You can double click on the mini map to autofill the location
+                <br />
+                The driver account can also quickly add a receipt at their current location
+                <br />
+                You can always edit your receipt details, such as total and date later.
+                <br />
+                You can login with DemoTransport and Demo Driver with the password 123
+            </p>
             <div>
             <img alt=''/>
             </div>
             <div>
-            <img alt=''/>
+            <img src='https://persona-project.s3-us-west-1.amazonaws.com/receipt+page.PNG' alt=''/>
             </div>
         </div>
     )

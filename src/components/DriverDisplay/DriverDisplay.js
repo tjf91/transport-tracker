@@ -47,14 +47,12 @@ function DriverDisplay(props){
                
     },[])
     const mappedDrivers=drivers.map((driver,index)=>(
-        <div key={driver.d_id} className='drivers'>
-            
+        <div key={driver.d_id} >            
             <Driver
             driver={driver}
             key={driver.d_id}
             forceUpdate={forceUpdate}
-            />
-           
+            />           
             </div>
         )
     )
@@ -68,15 +66,18 @@ function DriverDisplay(props){
             {
                 formToggle&&
             <form onSubmit={addDriver}>
-                <input onChange={handleFormInput} placeholder='name' name='name'/>
-                <input onChange={handleFormInput} placeholder='password' name='password' />
-                <input onChange={handleFormInput} placeholder='phone-number' name='phone_number'/>
-                <input onChange={handleFormInput} placeholder='email' name='email'/>                
-                <button>Submit New Driver</button>
+                <TextField onChange={handleFormInput} placeholder='name' name='name'/>
+                <TextField onChange={handleFormInput} placeholder='password' name='password' />
+                <TextField onChange={handleFormInput} placeholder='phone-number' name='phone_number'/>
+                <TextField onChange={handleFormInput} placeholder='email' name='email'/>                
+                <Button type='submit' variant='contained' id='submit-driver' >Submit New Driver</Button>
             </form>            
              
             }
+            <div className='drivers'>
+
             {mappedDrivers}
+            </div>
         </div>
     )
 }

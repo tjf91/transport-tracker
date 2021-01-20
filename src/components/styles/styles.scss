@@ -6,15 +6,14 @@ form{
     display: flex;
     flex-direction: column;
     justify-content: center;    
-    text-align: center;
-    background-color: inherit;
+    text-align: center;    
     border-radius: 10px;
     
     input{
         background-color: v.$accent3;
         border-radius: 10px;
         &[name="total"]{
-            background-color: v.$accent2;
+            background-color: inherit;
         }
         &[name="date_created"]{
             color: blue;
@@ -35,6 +34,8 @@ form{
     max-height: 200px;
     max-width:  200px;
     border-radius: 50%;
+    min-height: 200px;
+    min-width: 200px;
 }
 #login{
     background-color: v.$accent2;
@@ -53,6 +54,26 @@ form{
     height: 50px;
     width: 150px;
 }
+#submit-driver{
+    background-color: v.$accent2;
+    height: 50px;
+    width: 150px;
+}
 #options{
     background-color: v.$accent1;
+}
+#start-trip{
+    background-color: v.$accent2;
+    height: 50px;
+    width: 150px;
+}
+#add-receipts{
+    background-color: v.$accent1;
+    height: 50px;
+    width: 150px;
+}
+#submit-receipt{
+    background-color: v.$accent2;
+    height: 50px;
+    width: 150px;
 }

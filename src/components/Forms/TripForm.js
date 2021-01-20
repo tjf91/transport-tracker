@@ -1,5 +1,9 @@
 import { useState } from "react"
 import { withRouter } from "react-router-dom"
+import '../styles/styles.scss'
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 
 function TripForm(props){
     const [trip,setTrip]=useState({
@@ -15,10 +19,11 @@ function TripForm(props){
     const handleBeginTrip=(e)=>{
         e.preventDefault()        
         props.beginTrip(trip)
-        props.handleFormToggle(false)       
+        props.handleFormToggle(false)
+               
     }
     const handleEdit=(e)=>{
-        
+
     }
     
 
@@ -26,8 +31,8 @@ function TripForm(props){
         <div>
             {props.add_trip&&
         <form onSubmit={handleBeginTrip}>
-            <input defaultValue={trip.name} onChange={handleChange} name='name' placeholder='Name of Trip' />
-            <button>Start</button>            
+            <TextField defaultValue={trip.name} onChange={handleChange} name='name' placeholder='Name of Trip' />
+            <Button type='submit' variant='contained' id='start-trip'>Start</Button>            
         </form>
             
             }

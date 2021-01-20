@@ -23,15 +23,15 @@ module.exports={
         const db = req.app.get('db')
         const {company_id,driver_d_id}=req.params
         const {name,date_start,date_end,total_spent,status}=req.body
-        const trips=await db.trips.addTrip([name,date_start,date_end,total_spent,+company_id,+driver_d_id,status])
+        const [trips]=await db.trips.addTrip([name,date_start,date_end,total_spent,+company_id,+driver_d_id,status])
         res.status(201).send(trips)
     },
     editTrip:async(req,res)=>{
         const db = req.app.get('db')
         const {trip_id}=req.params
-        const {name,date_start,date_end,total_spent}=req.body
-        const trips=await db.trips.editTrip([name,date_start,date_end,total_spent,+trip_id])
-        res.status(201).send(trips)
+        const {name,date_start,date_end,total_spent,status}=req.body
+        const [trip]=await db.trips.editTrip([name,date_start,date_end,total_spent,status,+trip_id])
+        res.status(201).send(trip)
     },
     deleteTrip:async(req,res)=>{
         const db = req.app.get('db')

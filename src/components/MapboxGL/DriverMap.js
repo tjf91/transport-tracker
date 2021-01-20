@@ -17,8 +17,8 @@ function DriverMap(props){
     
     mapboxgl.accessToken = REACT_APP_MAPBOX_APIKEY
     const styles = {
-        width: "400px",
-        height: "400px",
+        width: "600px",
+        height: "600px",
         borderRadius: "10px"        
     };
     useEffect(()=>{

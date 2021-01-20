@@ -2,10 +2,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    text-align: center; 
+    
+    
     
     button{
         width: 100px;
+    }
+}
+
+
+
+@media(min-width:800px){
+    .drivers{
+        width: 75%;        
+        display: flex; 
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+           
     }
 }

@@ -18,15 +18,19 @@ function Header(props){
         props.logout()
     }
     const updateLocation=()=>{
-        axios.put(`/drivers/${props.d_id}?q=location`,{lng:pos.longitude,lat:pos.latitude})
-        .then(()=>console.log('location update',pos))
-        .catch(e=>console.log(e))
+        if(pos.latitude){
+            axios.put(`/drivers/${props.d_id}?q=location`,{lng:pos.longitude,lat:pos.latitude})
+            .then(()=>console.log('location update',pos))
+            .catch(e=>console.log(e))
+        }
     }
     function successLocation(e){
         console.log('success',e)    
-        const {longitude,latitude}=e.coords        
+        const {longitude,latitude}=e.coords
+        console.log()        
         setPos({longitude,latitude})
         updateLocation()
+              
       }
     function errorLocation(e){
         console.log('ERROR LOCATION')
@@ -38,24 +42,25 @@ function Header(props){
         .then(res=>{
             const {id,d_id,name}=res.data
             props.loginUser({name,id,d_id})
+            if(props.d_id){
+                console.log('geo')   
+                    navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true})
+                    updateLocation()         
+                   }
         })
     },[])
     
     useEffect(()=>{
-        if(props.d_id){   
-                // navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true})         
-                const interval= setInterval(()=>{
-                console.log('Interval!')
-                navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true}) 
-                
-                  },10000)
-                  return ()=>clearInterval(interval)
-                }
-    })
+        if(props.d_id){
+            console.log('geo')   
+                navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true})
+                updateLocation()         
+               }
+    },[props.d_id])
     
     return(
         <header>            
-            <Link to='/'>
+            <Link to={`/${props.name}`}>
                 <img src={logo} alt='Logo' className='main-logo'/>
             </Link>
             {
@@ -67,14 +72,9 @@ function Header(props){
                 props.isLoggedIn
                 ?<Button id='logout' onClick={handleLogout}>Logout</Button>
                 :<Auth /> 
-                    
-                    
+                   
             }
-                
-                
-            
-                
-            
+              
         </header>
     )
 }

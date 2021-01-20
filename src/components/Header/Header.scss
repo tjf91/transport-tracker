@@ -6,7 +6,16 @@ header{
     display: flex;
     justify-content: space-between;
     button{
-        height: 25px;
-        
+        height: 25px;        
     }
+}
+
+@media(min-width:800px){
+    .main-logo{
+        max-height: 50px;
+        max-width: 200px;
+    }
+ header{
+     justify-content: space-around;
+ }
 }

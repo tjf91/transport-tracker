@@ -11,7 +11,7 @@ function App(props) {
     <div className="App">
       <Header />
       {
-        !props.id&&
+        !(props.id||props.d_id)&&
         <Welcome/>
       }      
       {routes}

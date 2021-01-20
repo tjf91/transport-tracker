@@ -46,7 +46,7 @@ app.get('/drivers/:driver_d_id/trips',verifyDriver,tripCtrl.getDriverTrips)
 app.get('/drivers/:driver_d_id/companies',verifyDriver,driverCtrl.getDriverCompany)
 
 app.post('/companies/:company_id/drivers/:driver_d_id/trips',verifyCompanyDriver,tripCtrl.addTrip)
-// app.put('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id',verifyCompanyDriver,tripCtrl.editTrip)
+app.put('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id',verifyCompanyDriver,tripCtrl.editTrip)
 app.delete('/companies/:company_id/drivers/:driver_d_id/trips/:trip_id',verifyCompanyDriver,tripCtrl.deleteTrip)
 
 app.get('/companies/:company_id/trips/:trip_id/receipts',verifyCompany,receiptCtrl.getCompanyDriverTripReceipts)

@@ -10,15 +10,15 @@ function Home(props){
             
                {
                    props.id&&
-                   <div>
+                   
                         <DriverDisplay/>                        
-                   </div>
+                   
                }
                {
                    props.d_id&&
-                   <div>                        
+                                          
                         <TripDisplay />
-                   </div>
+                   
                }
                
         </main>

@@ -12,7 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 function Driver(props){
     const [formToggle, setFormToggle]=useState(false)
-    const [driverPic, setDriverPic]=useState(props.driver.profile_pic)
+    const [driverPic, setDriverPic]=useState(props.driver.profile_pic||'https://persona-project.s3-us-west-1.amazonaws.com/Daco_5508649.png')
     const [anchorEl, setAnchorEl] = useState(null);
     const handleFormToggle=()=>{        
         setFormToggle(!formToggle)

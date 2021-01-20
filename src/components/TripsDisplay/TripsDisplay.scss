@@ -28,11 +28,12 @@
     }
     
 }
-.trip-title{
-    // background-color: red;
+.trip-title{    
     display: flex;
     justify-content: space-between;
-         
+         h4{
+             width: 100%;
+         }
     }
 .display-pie-chart{
     height: 150px;
@@ -45,6 +46,14 @@
     position: relative;
     
 }
+.trip-info{
+    display: flex;
+    flex-direction: column;
+    }
 // #begin{
-//     background-color: sandybrown;
+//     background-color: v.$accent3;
 // }  
+
+.select-form{
+    
+}

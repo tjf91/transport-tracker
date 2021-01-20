@@ -72,7 +72,7 @@ export default function Bar(props){
                 direction: 'column',
                 justify: false,
                 translateX: 120,
-                translateY: 0,
+                translateY: -100,
                 itemsSpacing: 2,
                 itemWidth: 100,
                 itemHeight: 20,
