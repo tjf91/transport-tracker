@@ -20,7 +20,7 @@ function MapboxGL(props){
   const { REACT_APP_MAPBOX_APIKEY} = process.env;
 
   //replace public key
-  mapboxgl.accessToken = 'pk.eyJ1IjoidGpmOTEiLCJhIjoiY2tpeXh6NDNnMDIzMjJ5cGhwcDA1bTVvbiJ9.HTkz382IfxQRTZOQt8btGA'
+  mapboxgl.accessToken = REACT_APP_MAPBOX_APIKEY
     const styles = {
         width: "400px",
         height: "400px",
