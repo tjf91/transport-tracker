@@ -1,9 +1,9 @@
-module.exports={
-    handleData:(input)=>({
+
+    export const handleData=(input)=>({
         'state':input.state,
         [input.type]:input.value,        
-    }),
-     groupBy:(data) => {  
+    })
+    export const groupBy=(data) => {  
         return data.reduce((ac, object) => {
         const key = object['state'];
         if(!ac[key]){
@@ -17,8 +17,8 @@ module.exports={
         }
         return ac;
         },{});
-        },
-        getStates:(data)=>{  
+        }
+        export const getStates=(data)=>{  
             let results=[]
               for(let i in data){
                 results.push(data[i].reduce((r,a)=>{
@@ -27,4 +27,3 @@ module.exports={
            } 
            return results
           }
-}

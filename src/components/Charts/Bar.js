@@ -2,7 +2,7 @@ import {ResponsiveBar} from "@nivo/bar"
 import axios from "axios"
 import React, {useEffect, useState} from 'react'
 import options from './options'
-import f from './barFunctions'
+import {handleData, groupBy, getStates} from './barFunctions'
 import { GridLoader } from 'react-spinners'
 
 export default function Bar(props){
@@ -13,10 +13,10 @@ export default function Bar(props){
         .then(res=>{
             console.log('bar',res.data) 
             //series of functions to get the data in the correct format to display on chart           
-            const firstSort=res.data.map(receipt=>f.handleData(receipt))      
+            const firstSort=res.data.map(receipt=>handleData(receipt))      
                 
-          const groupedStates = f.groupBy(firstSort);               
-            let finalR=f.getStates(groupedStates)   
+          const groupedStates = groupBy(firstSort);               
+            let finalR=getStates(groupedStates)   
             setState(finalR)   
            
             })
