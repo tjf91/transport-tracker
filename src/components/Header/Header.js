@@ -17,19 +17,20 @@ function Header(props){
         props.history.push('/')
         props.logout()
     }
-    const updateLocation=()=>{
-        if(pos.latitude){
-            axios.put(`/drivers/${props.d_id}?q=location`,{lng:pos.longitude,lat:pos.latitude})
-            .then(()=>console.log('location update',pos))
-            .catch(e=>console.log(e))
-        }
-    }
+    // const updateLocation=(longitude,latitude)=>{
+    //     if(latitude){
+    //         axios.put(`/drivers/${props.d_id}?q=location`,{lng:longitude,lat:latitude})
+    //         .then(res=>console.log('location update',res.data))
+    //         .catch(e=>console.log(e))
+    //     }
+    // }
     function successLocation(e){
         console.log('success',e)    
-        const {longitude,latitude}=e.coords
-        console.log()        
+        const {longitude,latitude}=e.coords              
         setPos({longitude,latitude})
-        updateLocation()
+        axios.put(`/drivers/${props.d_id}?q=location`,{lng:longitude,lat:latitude})
+            .then(res=>console.log('location update',res.data))
+            .catch(e=>console.log(e))
               
       }
     function errorLocation(e){
@@ -42,11 +43,11 @@ function Header(props){
         .then(res=>{
             const {id,d_id,name}=res.data
             props.loginUser({name,id,d_id})
-            if(props.d_id){
-                console.log('geo')   
-                    navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true})
-                    updateLocation()         
-                   }
+            // if(props.d_id){
+            //     console.log('geo')   
+            //         navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true})
+            //         // updateLocation()         
+            //        }
         })
     },[])
     
@@ -54,9 +55,9 @@ function Header(props){
         if(props.d_id){
             console.log('geo')   
                 navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true})
-                updateLocation()         
+                // updateLocation()         
                }
-    },[props.d_id])
+    },[props.d_id,props.name])
     
     return(
         <header>            
