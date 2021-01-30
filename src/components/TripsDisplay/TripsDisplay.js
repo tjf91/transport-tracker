@@ -11,7 +11,7 @@ import Bar from '../Charts/Bar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import editPencil from '../imgs/favpng_icon-design-editing-iconfinder-icon.png'
-import deleteIcon from '../imgs/favpng_button-checkbox.png'
+// import deleteIcon from '../imgs/favpng_button-checkbox.png'
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -157,7 +157,7 @@ function TripDisplay(props){
 
              }
                             }           
-                          src={deleteIcon} className='action-img' alt=''/>
+                          src='https://persona-project.s3-us-west-1.amazonaws.com/favpng_button-checkbox.png' className='action-img' alt=''/>
 
         </div>
         </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Moment from 'react-moment'
 import ReceiptForm from '../Forms/ReceiptForm'
 import editPencil from '../imgs/favpng_icon-design-editing-iconfinder-icon.png'
-import deleteIcon from '../imgs/favpng_button-checkbox.png'
+// import deleteIcon from '../imgs/favpng_button-checkbox.png'
 import './Receipt.scss'
 
 
@@ -53,14 +53,14 @@ export default function Receipt (props){
         
                 <img onClick={()=>{
                     props.setFormToggle(false)
-                    setEditToggle(!editToggle)}} src={editPencil} className='action-img' alt=''/>
+                    setEditToggle(!editToggle)}} src='https://persona-project.s3-us-west-1.amazonaws.com/favpng_icon-design-editing-iconfinder-icon.png' className='action-img' alt=''/>
                     <br />
                 <img onClick={()=>{ 
                     window.confirm('You sure about erasing this receipts')&&
                     props.deleteReceipt()
                     }
                     }           
-                    src={deleteIcon} className='action-img' alt=''/>
+                    src='https://persona-project.s3-us-west-1.amazonaws.com/favpng_button-checkbox.png' className='action-img' alt=''/>
       
     </div>
     )

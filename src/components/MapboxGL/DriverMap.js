@@ -2,11 +2,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import mapboxgl, { Marker } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import './MapboxGL.scss'
-import 'dotenv'
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
+require('dotenv').config()
 
 const { REACT_APP_MAPBOX_APIKEY} = process.env;
 

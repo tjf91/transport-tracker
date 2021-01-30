@@ -61,7 +61,7 @@ import {loginUser} from '../../redux/userReducer'
                 <br />
                 You can always edit your receipt details, such as total and date later.
                 <br />
-                You can login with DemoTransport and Demo Driver with the password 123
+                You can login with DemoTransport and Demo Driver and the password 123
             </p>
             <div>
             <img alt=''/>

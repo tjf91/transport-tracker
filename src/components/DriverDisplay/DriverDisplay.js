@@ -1,18 +1,19 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import Driver from '../Driver/Driver'
-import DriverEdit from '../Driver/DriverEdit'
+
 import DriverMap from '../MapboxGL/DriverMap'
 import './DriverDisplay.scss'
 import '../styles/styles.scss'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { GridLoader } from 'react-spinners'
 
 
 function DriverDisplay(props){
-    const [drivers,setDrivers]=useState([])
+    const [drivers,setDrivers]=useState(null)
     const [formToggle, setFormToggle]=useState(false)
     const [formInput, setFormInput]=useState({name:'',password:'',phone_number:'',email:''})
 
@@ -34,7 +35,9 @@ function DriverDisplay(props){
 
     const getDrivers=()=>{        
         axios.get(`/companies/${props.id}/drivers`)
-        .then(res=>setDrivers(res.data))
+        .then(res=>{
+            console.log('drivers', res.data)
+            setDrivers(res.data)})
         .catch(e=>console.log(e))
     }
     const forceUpdate=()=>{
@@ -46,17 +49,18 @@ function DriverDisplay(props){
         getDrivers() 
                
     },[])
-    const mappedDrivers=drivers.map((driver,index)=>(
-        <div key={driver.d_id} >            
-            <Driver
-            driver={driver}
-            key={driver.d_id}
-            forceUpdate={forceUpdate}
-            />           
-            </div>
-        )
-    )
-    
+
+    // const mappedDrivers=drivers.map((driver,index)=>(
+    //     // <div key={driver.d_id} >            
+    //         <Driver
+    //         driver={driver}
+    //         key={driver.d_id}
+    //         forceUpdate={forceUpdate}
+    //         />           
+    //         // </div>
+    //     )
+    // )||<div>Loading</div>
+    console.log(drivers)
     return(
         <div className='driver-display'>
             <DriverMap
@@ -75,8 +79,17 @@ function DriverDisplay(props){
              
             }
             <div className='drivers'>
-
-            {mappedDrivers}
+            {drivers?
+            drivers.map((driver,index)=>(
+                // <div key={driver.d_id} >            
+                    <Driver
+                    driver={driver}
+                    key={driver.d_id}
+                    forceUpdate={forceUpdate}
+                    /> 
+                    ))
+                    :<GridLoader/>
+            }
             </div>
         </div>
     )
