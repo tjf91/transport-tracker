@@ -13,7 +13,7 @@ import { GridLoader } from 'react-spinners'
 
 
 function DriverDisplay(props){
-    const [drivers,setDrivers]=useState(null)
+    const [drivers,setDrivers]=useState([])
     const [formToggle, setFormToggle]=useState(false)
     const [formInput, setFormInput]=useState({name:'',password:'',phone_number:'',email:''})
 

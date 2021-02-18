@@ -46,25 +46,15 @@ import {loginUser} from '../../redux/userReducer'
 
                 </form>
                 </div>}
-            <p>                
-                Register a company
-                <br />
-                Create Driver accounts and see them on the map
-                <br />
-                Give your driver/s their credentials and start tracking their trip
-                <br />
-                Create a trip and start adding receipts 
-                <br />
-                You can <strong>double click on the mini map </strong>to autofill the location
-                <br />
-                The driver account can also quickly add a receipt at their current location
-                <br />
-                You can always edit your receipt details, such as total and date later.
-                <br />
-                You can login with DemoTransport and Demo Driver and the password 123
+           
+            <div className='welcome-inst'>
+            <img alt='' src='https://persona-project.s3-us-west-1.amazonaws.com/transport-tracker/TT-pic1.PNG' className='welcome-img'/>
+            <p>Register a Company<br />
+            Create Driver Accounts and add user pics<br />
+            Once a driver logs in with their account, the icon appears on the map
             </p>
-            <div>
-            <img alt=''/>
+            {/* <p>Create Driver Accounts and add user pics</p>
+            <p>Once a driver logs in with their account, the icon appears on the map</p> */}
             </div>
            
         </div>

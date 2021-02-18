@@ -13,4 +13,14 @@ main{
         width: 400px;
         text-align: center;
     }
+    img{
+        max-height: 300px;
+        border: 2px solid black;
+    }
+}
+.welcome-inst{
+    border: 2px solid black;
+    display: flex;
+    width: 500px;
+    font-size: 1.5rem;
 }
