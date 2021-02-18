@@ -15,7 +15,12 @@ import {loginUser} from '../../redux/userReducer'
     const handleToggle =()=>setToggleForm(!toggleForm)
 
     const handleLoginInput=(e)=>{
-        setForm({...form,[e.target.name]:e.target.value})
+        if(e.target.value){
+            setForm({...form,[e.target.name]:e.target.value})
+        }
+        else{
+            console.error(setError('No blanks please'))
+        }
         }
     const handleAddCompany=(e)=>{
         e.preventDefault()
@@ -28,6 +33,7 @@ import {loginUser} from '../../redux/userReducer'
         .catch(e=>console.error(setError(e.response.data)))
 
     }
+    
 
     return(
         <div className='welcome'>
@@ -36,7 +42,7 @@ import {loginUser} from '../../redux/userReducer'
             </Button>
             {toggleForm&&
             <div>
-                <form onSubmit={handleAddCompany} className='register-form'>
+                <form onSubmit={handleAddCompany} id='register-form'>
                 <TextField onChange={handleLoginInput} name='name' placeholder='username' />            
                 <TextField onChange={handleLoginInput} type='password' name='password' placeholder='password' />            
                 <TextField onChange={handleLoginInput} name='phone_number' placeholder='phone_number' />            
@@ -52,10 +58,24 @@ import {loginUser} from '../../redux/userReducer'
             <p>Register a Company<br />
             Create Driver Accounts and add user pics<br />
             Once a driver logs in with their account, the icon appears on the map
-            </p>
-            {/* <p>Create Driver Accounts and add user pics</p>
-            <p>Once a driver logs in with their account, the icon appears on the map</p> */}
+            </p>            
             </div>
+            <div className='welcome-inst'>
+            <img alt='' src='https://persona-project.s3-us-west-1.amazonaws.com/transport-tracker/TT+pic+3.PNG' className='welcome-img'/>
+            <p>View and keep track of your drivers' trips<br />
+            Drivers can log in and view only their trips<br />
+            Keep track of spending per state
+            </p>            
+            </div>
+            <div className='welcome-inst'>
+            <img alt='' src='https://persona-project.s3-us-west-1.amazonaws.com/transport-tracker/TT+pic+4.PNG' className='welcome-img'/>
+            <p>Add receipts by double clicking on the map to fill in geo data<br />
+            Select type and total<br />
+            If driver account provides location, quick add buttons will be visible<br />
+            Edit or delete incorrect receipts
+            </p>            
+            </div>
+
            
         </div>
     )

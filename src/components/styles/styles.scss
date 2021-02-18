@@ -8,27 +8,13 @@ form{
     justify-content: center;    
     text-align: center;    
     border-radius: 10px;
+    background-color: blanchedalmond;   
     
-    input{
-        background-color: v.$accent3;
-        border-radius: 10px;
-        &[name="total"]{
-            background-color: inherit;
-        }
-        &[name="date_created"]{
-            color: blue;
-            
-        }
-        }
-        
     
 }
-.action-img{
-    
+.action-img{    
         max-height: 30px;
-        max-width: 30px;
-        
-    
+        max-width: 30px;           
 }
 .profile-pic{
     max-height: 200px;
