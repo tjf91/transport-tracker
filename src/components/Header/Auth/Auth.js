@@ -10,9 +10,10 @@ import TextField from '@material-ui/core/TextField';
 
 function Auth(props){
     const [loginInput, setLoginInput]=useState({name:'',password:''})
-    const [buttonOff, setButtonOff]=useState(null)
+    const [buttonOff, setButtonOff]=useState(false)
     const [errMsg, setErrMsg]=useState('')
     const handleLoginInput=(e)=>{
+        setButtonOff(false)
         setLoginInput({...loginInput,[e.target.name]:e.target.value})
     }
     const handleAuthSubmit=(e)=>{    
